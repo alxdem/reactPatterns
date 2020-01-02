@@ -12,6 +12,8 @@ import ItemDetails from "../item-details";
 import SwapiService from "../../services/swapi-service";
 import Row from "../row/row";
 
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 export default class App extends Component {
 
   swapiService = new SwapiService();
@@ -82,48 +84,64 @@ export default class App extends Component {
     );
 
     return (
-      <div className="stardb-app">
-        <Header />
-        <Row
-          left={personDetails}
-          right={starshipDetails}
-        />
+      <Router>
+        <div className="stardb-app">
+          <Header />
 
-        {/*{ planet }*/}
+          <Route
+            path="/"
+            render={() => <h2>Welcome to StarDB</h2> }
+            exact={true}
+          />
+          <Route
+            path="/people"
+            render={() => <h2>People</h2> }
+          />
+          <Route path="/people" component={PeoplePage}/>
+          <Route path="/planet" component={RandomPlanet}/>
+          <Route path="/starships" component={ItemDetails}/>
 
-        {/*<div className="row mb2 button-row">*/}
-        {/*  <button*/}
-        {/*    className="toggle-planet btn btn-warning btn-lg"*/}
-        {/*    onClick={this.toggleRandomPlanet}>*/}
-        {/*    Toggle Random Planet*/}
-        {/*  </button>*/}
-        {/*  <ErrorButton />*/}
-        {/*</div>*/}
+          <Row
+            left={personDetails}
+            right={starshipDetails}
+          />
 
-        {/*<PeoplePage />*/}
+          {/*{ planet }*/}
 
-        {/*<Row left={personLeft} right={personRight}/>*/}
+          {/*<div className="row mb2 button-row">*/}
+          {/*  <button*/}
+          {/*    className="toggle-planet btn btn-warning btn-lg"*/}
+          {/*    onClick={this.toggleRandomPlanet}>*/}
+          {/*    Toggle Random Planet*/}
+          {/*  </button>*/}
+          {/*  <ErrorButton />*/}
+          {/*</div>*/}
 
-        {/*<div className="row mb2">*/}
-        {/*  <div className="col-md-6">*/}
-        {/*    <ItemList*/}
-        {/*      onItemSelected={this.onPersonSelected}*/}
-        {/*      getData={this.swapiService.getAllStarships}*/}
-        {/*      renderItem={({name, model}) => `${name} (${model})`}*/}
-        {/*    >*/}
-        {/*      {(i) => (*/}
-        {/*        `${i.name} (${i.birthYear})`*/}
-        {/*      )}*/}
-        {/*    </ItemList>*/}
-        {/*  </div>*/}
-        {/*  <div className="col-md-6">*/}
-        {/*    <ItemDetails*/}
-        {/*      personId={this.state.selectedPerson}*/}
-        {/*    />*/}
-        {/*  </div>*/}
-        {/*</div>*/}
+          {/*<PeoplePage />*/}
 
-      </div>
+          {/*<Row left={personLeft} right={personRight}/>*/}
+
+          {/*<div className="row mb2">*/}
+          {/*  <div className="col-md-6">*/}
+          {/*    <ItemList*/}
+          {/*      onItemSelected={this.onPersonSelected}*/}
+          {/*      getData={this.swapiService.getAllStarships}*/}
+          {/*      renderItem={({name, model}) => `${name} (${model})`}*/}
+          {/*    >*/}
+          {/*      {(i) => (*/}
+          {/*        `${i.name} (${i.birthYear})`*/}
+          {/*      )}*/}
+          {/*    </ItemList>*/}
+          {/*  </div>*/}
+          {/*  <div className="col-md-6">*/}
+          {/*    <ItemDetails*/}
+          {/*      personId={this.state.selectedPerson}*/}
+          {/*    />*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+
+        </div>
+      </Router>
     );
   }
 }
